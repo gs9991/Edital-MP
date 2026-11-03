@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Concurso MP Jaguaré</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Source+Sans+3:wght@400;500;600;700;900&display=swap">
+<style>
+/* Conceito: chancela de cartório. Faixa verde da gravata do promotor (Art. 36), selo latão, autos em papel frio. */
+:root{
+  --bg:#eef1ee; --paper:#fbfcfa; --ink:#17241e; --muted:#55645c; --line:#d3dbd5;
+  --mp:#123f30; --mp-2:#1b5742; --on-mp:#f2f6f3; --on-mp-soft:#bcd0c5; --brass:#a97c28; --brass-soft:#f3e8cf;
+  --ok:#1b6b45; --ok-bg:#dcefe3; --warn:#8a5a00; --warn-bg:#f8ebc9; --bad:#a3302a; --bad-bg:#f8dfdc; --info:#25527c; --info-bg:#dde9f4;
+  --display:"Newsreader",Georgia,"Times New Roman",serif; --body:"Source Sans 3","Segoe UI",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f1714; --paper:#17211d; --ink:#e6ece8; --muted:#a0afa7; --line:#2d3b34;
+  --mp:#0d2d23; --mp-2:#164534; --on-mp:#eef4f0; --on-mp-soft:#a9c2b5; --brass:#d3a64e; --brass-soft:#3a2f18;
+  --ok:#74cf9f; --ok-bg:#183a2a; --warn:#e6bd66; --warn-bg:#3b2f13; --bad:#f09a92; --bad-bg:#43201d; --info:#9cc4ea; --info-bg:#1b3145;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1714; --paper:#17211d; --ink:#e6ece8; --muted:#a0afa7; --line:#2d3b34;
+  --mp:#0d2d23; --mp-2:#164534; --on-mp:#eef4f0; --on-mp-soft:#a9c2b5; --brass:#d3a64e; --brass-soft:#3a2f18;
+  --ok:#74cf9f; --ok-bg:#183a2a; --warn:#e6bd66; --warn-bg:#3b2f13; --bad:#f09a92; --bad-bg:#43201d; --info:#9cc4ea; --info-bg:#1b3145;
+  color-scheme:dark}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 var(--body)}
+[hidden]{display:none!important}
+h1,h2,h3{font-family:var(--display);line-height:1.15;text-wrap:balance;margin:0;font-weight:600}
+h2{font-size:clamp(1.7rem,4vw,2.3rem)} h3{font-size:1.3rem}
+p{margin:0}
+a{color:inherit}
+.wrap{max-width:1040px;margin:0 auto;padding-inline:max(16px,env(safe-area-inset-left,0px)) max(16px,env(safe-area-inset-right,0px))}
+.narrow{max-width:760px}
+.demo{background:var(--warn-bg);color:var(--warn);font-size:.9rem;font-weight:600;text-align:center;padding:6px 16px}
+header.top{background:var(--mp);color:var(--on-mp);position:sticky;top:0;z-index:20}
+.topin{display:flex;align-items:center;gap:20px;flex-wrap:wrap;padding-block:10px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;margin-right:auto;min-width:0}
+.logo{--s:17px;display:inline-grid;justify-items:start;background:#fff;color:#111;border-radius:4px;padding:calc(var(--s)*.55) calc(var(--s)*.8);font-family:var(--body);line-height:1;font-size:var(--s)}
+.logo.sm{--s:7.5px}
+.logo.seal{--s:21px;justify-self:end}
+.logo .lm{font-size:4.4em;font-weight:900;letter-spacing:-.04em;line-height:.9}
+.logo .lm i{font-style:normal;color:#d40b0b;margin-left:.1em}
+.logo .l1{font-size:1.55em;font-weight:400;margin-top:.3em}
+.logo .l2{font-size:.98em;font-weight:900;margin-top:.25em;letter-spacing:.01em}
+nav.main{display:flex;gap:4px;flex-wrap:wrap}
+nav.main a{color:var(--on-mp-soft);text-decoration:none;font-weight:600;padding:7px 12px;border-radius:4px}
+nav.main a:hover{color:var(--on-mp)}
+nav.main a[aria-current="page"]{background:var(--mp-2);color:var(--on-mp)}
+.hero{background:linear-gradient(170deg,var(--mp) 0%,var(--mp) 62%,var(--mp-2) 100%);color:var(--on-mp)}
+.heroin{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:32px;align-items:center;padding-block:44px 40px}
+.hero h1{font-size:clamp(2.2rem,6vw,3.6rem);letter-spacing:-.01em}
+.kicker{color:var(--on-mp-soft);text-transform:uppercase;letter-spacing:.12em;font-size:.8rem;font-weight:700;margin-bottom:12px}
+.hero p.lead{color:var(--on-mp-soft);font-size:1.15rem;max-width:56ch;margin-top:14px}
+.heroact{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border-block:1px solid var(--line)}
+.fact{background:var(--paper);padding:14px 16px;min-width:0}
+.fact span{display:block;color:var(--muted);font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.fact b{font-size:1.08rem;overflow-wrap:anywhere}
+main{padding-block:36px 56px}
+section.block{display:grid;gap:16px;margin-bottom:36px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:600 1rem var(--body);border:1px solid transparent;border-radius:4px;padding:10px 18px;cursor:pointer;text-decoration:none;background:var(--mp);color:var(--on-mp)}
+.btn:hover{background:var(--mp-2)}
+.btn.gold{background:var(--brass);color:#16110a}
+.btn.gold:hover{filter:brightness(1.07)}
+.btn.line{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.line:hover{border-color:var(--muted);background:transparent}
+.hero .btn.line{color:var(--on-mp);border-color:var(--on-mp-soft)}
+.btn.bad{background:transparent;color:var(--bad);border-color:var(--bad)}
+.btn.bad:hover{background:var(--bad-bg)}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+:focus-visible{outline:3px solid var(--brass);outline-offset:2px}
+.sheet{background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:clamp(18px,3vw,30px);display:grid;gap:14px;min-width:0}
+ol.tight,ul.tight{margin:0;padding-left:1.25em;display:grid;gap:6px}
+.ref{color:var(--muted);font-size:.9rem;white-space:nowrap}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;counter-reset:s}
+.step{counter-increment:s;display:grid;gap:4px;align-content:start;padding-top:12px;border-top:2px solid var(--brass)}
+.step::before{content:"Etapa " counter(s);color:var(--muted);font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.note{background:var(--info-bg);color:var(--info);padding:10px 14px;border-radius:4px}
+.warnbox{background:var(--warn-bg);color:var(--warn);padding:10px 14px;border-radius:4px}
+.errbox{background:var(--bad-bg);color:var(--bad);padding:10px 14px;border-radius:4px;font-weight:600}
+.okbox{background:var(--ok-bg);color:var(--ok);padding:10px 14px;border-radius:4px}
+/* Estudo */
+.studygrid{display:grid;grid-template-columns:230px minmax(0,1fr);gap:28px;align-items:start}
+.toc{position:sticky;top:90px;display:grid;gap:10px}
+.toc a{text-decoration:none;display:flex;gap:8px;align-items:baseline;padding:3px 0;font-weight:500}
+.toc a:hover{color:var(--brass)}
+.toc a.done{color:var(--muted);text-decoration:line-through}
+.bar{height:8px;background:var(--line);border-radius:4px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--brass);transition:width .25s}
+.module{scroll-margin-top:90px}
+.module .mhead{display:flex;justify-content:space-between;gap:12px;align-items:baseline;flex-wrap:wrap}
+.tick{display:inline-flex;gap:8px;align-items:center;font-size:.95rem;color:var(--muted);cursor:pointer}
+.tablebox{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
+th{font-size:.82rem;text-transform:uppercase;letter-spacing:.05em;text-align:left;color:var(--muted);border-bottom:2px solid var(--line);padding:8px 10px}
+td{border-bottom:1px solid var(--line);padding:9px 10px;vertical-align:top}
+details.card{border:1px solid var(--line);border-radius:4px;padding:10px 14px;background:var(--bg)}
+details.card summary{cursor:pointer;font-weight:600}
+details.card p{margin-top:8px}
+/* Prova */
+label.f{display:grid;gap:4px;font-weight:600;min-width:0}
+label.f small{font-weight:400;color:var(--muted)}
+input[type=text],input[type=email],input[type=password],input[type=number],input[type=date],textarea{font:400 1rem var(--body);color:var(--ink);background:var(--paper);border:1px solid var(--muted);border-radius:4px;padding:10px 12px;width:100%;min-width:0}
+textarea{resize:vertical;min-height:120px;line-height:1.5}
+.check{display:flex;gap:10px;align-items:flex-start}
+.check input{margin-top:6px;flex:none}
+.progressline{position:sticky;top:66px;z-index:10;background:var(--bg);padding-block:10px;display:grid;gap:6px;border-bottom:1px solid var(--line)}
+.progressline div.row{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:.92rem;color:var(--muted)}
+.question{display:grid;gap:8px;scroll-margin-top:130px}
+.qnum{font:600 .85rem var(--body);color:var(--brass);text-transform:uppercase;letter-spacing:.07em}
+.qtext{font-weight:600}
+.blocktitle{padding-top:10px;border-top:2px solid var(--brass)}
+.receipt{text-align:center;justify-items:center}
+.receipt .logo{border:1px solid var(--line)}
+.proto{font:700 1.5rem var(--display);letter-spacing:.04em;font-variant-numeric:tabular-nums}
+/* Admin */
+.tabs{display:flex;gap:4px;border-bottom:2px solid var(--line);flex-wrap:wrap}
+.tabs button{font:600 1rem var(--body);background:none;border:0;color:var(--muted);padding:9px 14px;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--brass)}
+.toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.toolbar input{flex:1 1 220px;width:auto}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.stat{background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:10px 14px}
+.stat b{display:block;font:600 1.7rem var(--display)}
+.stat span{color:var(--muted);font-size:.85rem}
+.pill{display:inline-block;padding:1px 9px;border-radius:999px;font-size:.84rem;font-weight:600;white-space:nowrap}
+.p-and{background:var(--info-bg);color:var(--info)}.p-esp{background:var(--warn-bg);color:var(--warn)}.p-ok{background:var(--ok-bg);color:var(--ok)}.p-bad{background:var(--bad-bg);color:var(--bad)}
+tr.rowlink{cursor:pointer}tr.rowlink:hover td{background:var(--bg)}
+.corr{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+.answer{white-space:pre-wrap;overflow-wrap:anywhere;background:var(--bg);border-radius:4px;padding:10px 12px;min-height:48px}
+.key{background:var(--brass-soft);border-radius:4px;padding:10px 12px}
+.key b{display:block;font-size:.8rem;text-transform:uppercase;letter-spacing:.05em}
+.marks{display:grid;grid-template-columns:120px minmax(0,1fr);gap:12px;align-items:start}
+.totalbar{position:sticky;bottom:0;background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:12px 16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:space-between}
+.totalbar b{font:600 1.5rem var(--display);font-variant-numeric:tabular-nums}
+.modal{position:fixed;inset:0;background:rgba(5,15,10,.6);display:grid;place-items:center;padding:16px;z-index:50}
+.modal .sheet{max-width:480px;width:100%}
+.modal .acts{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
+footer{border-top:1px solid var(--line);padding-block:20px;color:var(--muted);font-size:.9rem}
+.footin{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:4px;z-index:60;font-weight:600;max-width:90vw}
+@media (max-width:820px){
+  .heroin{grid-template-columns:minmax(0,1fr);padding-block:28px}.logo.seal{display:none}
+  .facts,.stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .studygrid{grid-template-columns:minmax(0,1fr)}.toc{position:static}
+  .two,.steps,.corr{grid-template-columns:minmax(0,1fr)}
+  header.top{position:static}.progressline{top:0}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="demo" id="demoBar" hidden>Modo demonstração: as provas ficam só neste navegador até você colar a configuração do Firebase.</div>
+<header class="top"><div class="wrap topin">
+  <a class="brand" href="#inicio"><span class="logo sm" role="img" aria-label="Ministério Público do Estado de Jaguaré"><span class="lm" aria-hidden="true">MP<i>JG</i></span><span class="l1" aria-hidden="true">Ministério Público</span><span class="l2" aria-hidden="true">DO ESTADO DE JAGUARÉ</span></span></a>
+  <nav class="main" aria-label="Principal">
+    <a href="#inicio" data-nav="inicio">Início</a><a href="#edital" data-nav="edital">Edital</a><a href="#estudo" data-nav="estudo">Estudo</a><a href="#prova" data-nav="prova">Prova</a><a href="#painel" data-nav="painel">Painel</a>
+  </nav>
+</div></header>
+<div id="app"></div>
+<footer><div class="wrap footin"><span>Documento fictício, de uso exclusivo no modo Role Play do Jaguaré RP.</span><span>Base: Ordenamento Jurídico de Jaguaré, versão 2026.15.</span></div></footer>
+<div id="overlay"></div>
+
+<script type="module">
+/* ==== CONFIGURAÇÃO ==== Cole aqui o firebaseConfig do seu projeto. Enquanto estiver null, a página roda em modo demonstração. */
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyD5rmaw6CxsdKZTBmQUgSl1ezkPeRf6-D8",
+  authDomain: "edital-mp.firebaseapp.com",
+  projectId: "edital-mp",
+  storageBucket: "edital-mp.firebasestorage.app",
+  messagingSenderId: "284111173441",
+  appId: "1:284111173441:web:873e738e55f8d4b11f53c0"
+};
+const FB = "https://www.gstatic.com/firebasejs/10.12.2/";
+
+const QUESTOES = [
+ {id:"q1",bloco:"A",max:2,t:"Qual é o papel do Ministério Público na cidade de Jaguaré?"},
+ {id:"q2",bloco:"A",max:2,t:"Cite três deveres do Ministério Público e explique como um deles funciona na prática."},
+ {id:"q3",bloco:"A",max:2,t:"Ao analisar um caso, quando o promotor deve oferecer a denúncia e quando deve requerer o arquivamento?"},
+ {id:"q4",bloco:"A",max:2,t:"Depois de iniciada a ação penal, o Ministério Público pode desistir dela? Justifique."},
+ {id:"q5",bloco:"A",max:2,t:"Cite duas vedações aos membros do Ministério Público e informe os limites de afastamento das atividades."},
+ {id:"q6",bloco:"B",max:1,t:"Segundo o DL 006/2024, o que a denúncia deve conter?"},
+ {id:"q7",bloco:"B",max:1,t:"Segundo o DL 008/2024, quem emite os mandados judiciais, qual é a participação do Ministério Público e qual é o prazo de cumprimento?"},
+ {id:"q8",bloco:"B",max:1,t:"Qual é o prazo de prescrição previsto no DL 011/2024 e quais são suas causas interruptivas?"},
+ {id:"q9",bloco:"B",max:1,t:"Quais decisões o juiz pode tomar na audiência de custódia? Se o DL 006/2024 e o DL 016/2024 entrarem em conflito sobre o tema, qual deles prevalece?"},
+ {id:"q10",bloco:"B",max:1,t:"Um réu primário e confesso, sem advogado ou defensor, responde por crime que não foi tratado em TCO. Ele tem direito à redução de pena? Justifique."},
+ {id:"q11",bloco:"B",max:1,t:"Um cidadão cometeu dois crimes na mesma ocorrência. A autoridade pode lavrar TCO? Justifique com base no DL 013/2024."},
+ {id:"q12",bloco:"B",max:1,t:"Um cidadão com porte de arma é preso em flagrante. O que a autoridade policial deve fazer com a arma e quem pode suspender, cassar ou revogar o porte?"},
+ {id:"q13",bloco:"B",max:1,t:"Em quais hipóteses o uso de algemas pelas forças de segurança é lícito e qual é a consequência do uso sem justificativa?"},
+ {id:"q14",bloco:"B",max:1,t:"Um cidadão é flagrado com 65 munições. Qual é o enquadramento e como fica a pena segundo o DL 012/2024?"},
+ {id:"q15",bloco:"B",max:1,t:"O crime consumado tem pena de 40 meses, mas foi apenas tentado, e o réu está representado por advogado constituído. Sem considerar outras reduções, calcule a pena conforme a Súmula Vinculante 005/2026."}
+];
+const BLOCOS = {A:"Bloco A: o papel do Ministério Público",B:"Bloco B: decretos e súmulas"};
+const EDITAL_PADRAO = {aberto:true,vagas:"A definir",inicio:"",fim:"",banca:"A definir",assinante:"A definir",notaMinima:14};
+
+const MODULOS = [
+ {id:"m1",t:"O Ministério Público",h:`<p>O MP é instituição permanente e essencial à função jurisdicional. Ele defende a ordem jurídica, o regime democrático e os interesses sociais e individuais indisponíveis. <span class="ref">Art. 14</span></p>
+ <div class="two"><div><b>Deveres principais</b><ul class="tight"><li>Zelar pela observância das leis.</li><li>Ser titular da ação penal pública.</li><li>Promover a ação civil pública.</li><li>Promover recomendações e oficiar órgãos.</li><li>Apreciar o inquérito policial.</li><li>Cumprir os prazos processuais.</li><li>Fundamentar cada manifestação, com relatório, fatos, direito e requerimento.</li></ul><p class="ref">Art. 15</p></div>
+ <div><b>Vedações</b><ul class="tight"><li>Exercer outro cargo, salvo magistério.</li><li>Dedicar-se à atividade político-partidária.</li><li>Receber auxílios ou contribuições fora das exceções legais.</li><li>Afastar-se sem motivo idôneo por mais de 72 horas.</li><li>Afastar-se por mais de 10 dias, mesmo com justificativa, salvo força maior.</li></ul><p class="ref">Art. 17</p></div></div>
+ <p>Garantias: irredutibilidade de subsídio, prisão só por ordem judicial de instância igual ou superior ou flagrante de crime grave, e porte de arma de defesa pessoal. <span class="ref">Art. 16</span></p>`},
+ {id:"m2",t:"Ação penal e denúncia",h:`<p>Nos crimes de ação pública, o MP promove a ação por denúncia. Sua decisão depende de três elementos: <b>autoria, materialidade e nexo causal</b>.</p>
+ <div class="tablebox"><table><tr><th>Situação</th><th>Atuação do MP</th><th>Base</th></tr>
+ <tr><td>Elementos comprovados</td><td>É obrigado a oferecer a denúncia</td><td>DL 016, Art. 7º</td></tr>
+ <tr><td>Elementos insuficientes</td><td>Requer o arquivamento</td><td>DL 016, Art. 8º</td></tr>
+ <tr><td>Ação penal já iniciada</td><td>Não pode desistir</td><td>DL 006, Art. 26</td></tr></table></div>
+ <p>A denúncia traz a exposição do fato com suas circunstâncias, a qualificação do acusado, a classificação do crime e, quando necessário, o rol de testemunhas. <span class="ref">DL 006, Art. 25</span></p>
+ <p>O inquérito é escrito, inquisitivo, sigiloso, dispensável, oficial e oficioso. A autoridade policial não pode mandar arquivá-lo. <span class="ref">DL 006, Arts. 6º e 16</span></p>`},
+ {id:"m3",t:"Prisão e audiência de custódia",h:`<p>Está em flagrante quem comete a infração, acaba de cometê-la, é perseguido logo após ou é encontrado logo depois com instrumentos ou objetos que façam presumir a autoria. <span class="ref">DL 006, Art. 30</span></p>
+ <p>Na custódia, o juiz fundamenta uma destas decisões: relaxar a prisão ilegal, decretar a prisão, conceder liberdade com ou sem fiança ou converter o flagrante em TCO. <span class="ref">DL 016, Art. 4º</span></p>
+ <p class="note">Em conflito entre o Título IV do DL 006 e o DL 016, prevalece o DL 016, por ser a norma específica. <span class="ref">DL 006, Art. 40</span></p>
+ <p>O MP e a defesa se manifestam sobre a prisão e sobre medidas alternativas antes da decisão. <span class="ref">DL 016, Art. 14, VII</span></p>`},
+ {id:"m4",t:"Mandados, entrada e algemas",h:`<p>Juízes competentes emitem os mandados de prisão, busca e apreensão ou pacificação, após análise prévia do MP sobre autoria, materialidade e nexo causal. O cumprimento deve ocorrer em até 30 dias, com prorrogação fundamentada pelo juiz. <span class="ref">DL 008, Arts. 1º e 3º</span></p>
+ <p>A polícia pode entrar em residências e empresas com ordem judicial, em flagrante, para socorro ou desastre e em perseguição, assegurada a segurança dos envolvidos. <span class="ref">DL 007, Art. 1º</span></p>
+ <p>A algema só é lícita em caso de infundada resistência, fundado receio de fuga ou perigo à integridade física. O uso deve ser justificado oralmente, sob pena de responsabilidade e nulidade. <span class="ref">DL 009, Art. 1º</span></p>`},
+ {id:"m5",t:"Penas, reduções e súmulas",h:`<div class="tablebox"><table><tr><th>Benefício</th><th>Redução</th></tr>
+ <tr><td>Réu primário</td><td>50%</td></tr><tr><td>Representado por advogado constituído</td><td>30% a 50%</td></tr><tr><td>Réu confesso</td><td>5% a 10%</td></tr>
+ <tr><td>Custódia de 15 a 30 minutos</td><td>10%</td></tr><tr><td>Custódia de 60 minutos ou mais</td><td>30%</td></tr><tr><td><b>Limite total</b></td><td><b>70%</b></td></tr></table></div>
+ <p class="ref" style="white-space:normal">DL 016, Art. 12</p>
+ <ul class="tight"><li><b>Súmula 004/2024:</b> não se admite consunção. Cada crime é imputado individualmente.</li>
+ <li><b>Súmula 005/2026:</b> a tentativa reduz a pena do crime consumado em 50%. A redução por advogado incide sobre a pena já reduzida.</li>
+ <li><b>Súmula 006/2026:</b> benefícios dependem de advogado ou defensor habilitado. A vedação não se aplica ao TCO.</li></ul>
+ <p class="note">Exemplo: pena de 60 meses tentada vira 30 meses. Com advogado a 50%, chega a 15 meses.</p>`},
+ {id:"m6",t:"Prescrição, TCO, porte e munições",h:`<p><b>Prescrição:</b> 30 dias para qualquer crime. O prazo volta do zero com o recebimento da denúncia ou queixa, com a publicação de sentença ou acórdão e com a ausência comprovada do alvo na cidade por mais de 15 dias consecutivos. <span class="ref">DL 011</span></p>
+ <p><b>TCO:</b> não cabe em crime contra a vida, com violência ou grave ameaça, obstrução de justiça, emprego de explosivos ou quando houver dois ou mais crimes. <span class="ref">DL 013, Art. 3º</span></p>
+ <p><b>Porte de arma:</b> somente o Poder Judiciário suspende, cassa ou revoga. No flagrante, a autoridade policial detém o armamento e notifica o MP. <span class="ref">DL 002, Art. 5º</span></p>
+ <div class="tablebox"><table><tr><th>Munições</th><th>Enquadramento</th></tr><tr><td>51 a 79</td><td>Tráfico privilegiado, com pena do tráfico de munições reduzida em 25%</td></tr><tr><td>Acima de 80</td><td>Tráfico de munições, Art. 17 do Código Penal</td></tr></table></div>
+ <p class="ref" style="white-space:normal">DL 012</p>`}
+];
+const TREINO = [
+ ["O MP pode promover ação civil pública?","Sim. Promover a ação civil pública é dever do MP, nos termos da lei (Art. 15, III)."],
+ ["Quem pode provocar a atuação do MP em crime de ação pública?","Qualquer pessoa do povo, por escrito, com informações sobre fato, autoria, tempo, lugar e elementos de convicção (DL 006, Art. 24)."],
+ ["O policial pode arquivar um inquérito?","Não. A autoridade policial não pode mandar arquivar autos de inquérito (DL 006, Art. 16)."],
+ ["O MP precisa ser comunicado de uma prisão?","Sim. A prisão e o local são comunicados imediatamente ao juiz, ao MP e à pessoa indicada (DL 016, Art. 2º)."],
+ ["O que acontece se a custódia não for realizada sem motivo idôneo?","A autoridade responde administrativa, civil e penalmente, e a prisão é ilegal e deve ser relaxada (DL 006, Art. 34, §§ 2º e 3º)."],
+ ["A consunção absorve o crime-meio em Jaguaré?","Não. A Súmula Vinculante 004/2024 manda imputar todos os crimes individualmente."]
+];
+
+/* ==== Utilidades ==== */
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const app = $("#app");
+const esc = v => String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const safeGet = k=>{try{return localStorage.getItem(k)}catch{return null}};
+const safeSet = (k,v)=>{try{localStorage.setItem(k,v)}catch{}};
+const norm = s=>String(s).trim().toLowerCase().replace(/[^a-z0-9._-]/g,"");
+const ms = t=>!t?0:typeof t==="number"?t:t.toMillis?t.toMillis():0;
+const fmtDT = t=>ms(t)?new Date(ms(t)).toLocaleString("pt-BR",{dateStyle:"short",timeStyle:"short"}):"—";
+const fmtD = s=>s?s.split("-").reverse().join("/"):"A definir";
+const dur = (a,b)=>{const m=Math.round((ms(b)-ms(a))/60000);return m>=0&&ms(a)&&ms(b)?(m<60?m+" min":Math.floor(m/60)+"h"+String(m%60).padStart(2,"0")):"—"};
+const ptNum = n=>String(n).replace(".",",");
+function toast(m){const d=document.createElement("div");d.className="toast";d.textContent=m;d.setAttribute("role","status");document.body.append(d);setTimeout(()=>d.remove(),2600)}
+function confirmar(titulo,texto,acao,perigo){return new Promise(res=>{const o=$("#overlay");o.innerHTML=`<div class="modal" role="dialog" aria-modal="true"><div class="sheet"><h3>${esc(titulo)}</h3><p>${esc(texto)}</p><div class="acts"><button class="btn line" id="mNo">Voltar</button><button class="btn ${perigo?"bad":"gold"}" id="mYes">${esc(acao)}</button></div></div></div>`;$("#mNo").onclick=()=>{o.innerHTML="";res(false)};$("#mYes").onclick=()=>{o.innerHTML="";res(true)};$("#mNo").focus()})}
+async function copiar(t,el){try{await navigator.clipboard.writeText(t);toast("Copiado")}catch{toast("Selecione o texto e copie manualmente");el&&el.select&&el.select()}}
+
+/* ==== Armazenamento: Firebase ou demonstração ==== */
+function demoStore(){
+  let m={};try{m=JSON.parse(safeGet("mpj_demo")||"{}")}catch{}
+  const save=()=>safeSet("mpj_demo",JSON.stringify(m));
+  let uid=safeGet("mpj_demo_uid");if(!uid){uid="u"+Math.random().toString(36).slice(2,10);safeSet("mpj_demo_uid",uid)}
+  let perfil=null;
+  const contas=()=>Object.entries(m).filter(([k])=>k.startsWith("banca/")).map(([k,v])=>({_id:k.split("/")[1],...v}));
+  return {demo:true,now:()=>Date.now(),
+    uid:async()=>uid,logado:()=>!!perfil,ehAdmin:()=>perfil?.papel==="admin",usuario:()=>perfil?.usuario||"",meuId:()=>perfil?._id,
+    login:async(u,s)=>{const c=contas().find(x=>x.usuario===u&&x.senha===s);if(!c)throw{code:"auth/invalid-credential"};perfil=c},
+    logout:async()=>{perfil=null},
+    primeiroAcesso:async(u,s,c)=>{if(c!=="demo")throw{code:"codigo"};if(contas().some(x=>x.usuario===u))throw{code:"auth/email-already-in-use"};const id="b"+Date.now();m["banca/"+id]={usuario:u,papel:"admin",senha:s};save();perfil={_id:id,...m["banca/"+id]}},
+    criarMembro:async(u,s,papel)=>{if(contas().some(x=>x.usuario===u))throw{code:"auth/email-already-in-use"};m["banca/b"+Date.now()]={usuario:u,papel,senha:s,criadoEm:Date.now()};save()},
+    alterarSenha:async(a,n)=>{if(m["banca/"+perfil._id].senha!==a)throw{code:"auth/invalid-credential"};m["banca/"+perfil._id].senha=n;save()},
+    get:async(c,i)=>m[c+"/"+i]??null,
+    set:async(c,i,d)=>{m[c+"/"+i]=d;save()},
+    update:async(c,i,d)=>{m[c+"/"+i]={...m[c+"/"+i],...d};save()},
+    del:async(c,i)=>{delete m[c+"/"+i];save()},
+    list:async c=>Object.entries(m).filter(([k])=>k.startsWith(c+"/")).map(([k,v])=>({_id:k.split("/")[1],...v})),
+    criarProva:async(p,idDoc,chaveD)=>{if(m["provas/"+idDoc]||m["chaves/"+chaveD]||m["chaves/u_"+p.uid])throw{code:"permission-denied"};m["provas/"+idDoc]=p;m["chaves/"+chaveD]={uid:p.uid,idDoc};m["chaves/u_"+p.uid]={uid:p.uid,idDoc};save()}
+  };
+}
+async function fbStore(){
+  const [{initializeApp,deleteApp},A,F]=await Promise.all([import(FB+"firebase-app.js"),import(FB+"firebase-auth.js"),import(FB+"firebase-firestore.js")]);
+  const a=initializeApp(FIREBASE_CONFIG),auth=A.getAuth(a),db=F.getFirestore(a);
+  await auth.authStateReady();
+  const ref=(c,i)=>F.doc(db,c,i);
+  /* O Firebase exige um e-mail interno: o usuário digita só o nome e nenhum e-mail real é usado. */
+  const mail=u=>u+"@banca.mpjaguare.app";
+  let perfil=null;
+  const carregar=async()=>{const u=auth.currentUser;perfil=null;if(u&&!u.isAnonymous){const s=await F.getDoc(ref("banca",u.uid));if(s.exists())perfil={_id:u.uid,...s.data()}}return perfil};
+  try{await carregar()}catch{}
+  return {demo:false,now:()=>F.serverTimestamp(),
+    uid:async()=>{let u=auth.currentUser;if(u&&!u.isAnonymous)throw{code:"admin-session"};if(!u)u=(await A.signInAnonymously(auth)).user;return u.uid},
+    logado:()=>!!perfil,ehAdmin:()=>perfil?.papel==="admin",usuario:()=>perfil?.usuario||"",meuId:()=>perfil?._id,
+    login:async(u,s)=>{await A.signInWithEmailAndPassword(auth,mail(u),s);if(!await carregar()){await A.signOut(auth);throw{code:"auth/invalid-credential"}}},
+    logout:async()=>{perfil=null;await A.signOut(auth)},
+    primeiroAcesso:async(u,s,c)=>{const cr=await A.createUserWithEmailAndPassword(auth,mail(u),s),i=cr.user.uid;
+      try{await F.setDoc(ref("banca",i),{usuario:u,papel:"admin",codigo:c});await F.setDoc(ref("banca",i),{usuario:u,papel:"admin"})}
+      catch{await cr.user.delete();throw{code:"codigo"}}
+      await carregar()},
+    criarMembro:async(u,s,papel)=>{const b=initializeApp(FIREBASE_CONFIG,"cad"+Date.now()),ba=A.getAuth(b);
+      try{const cr=await A.createUserWithEmailAndPassword(ba,mail(u),s);await F.setDoc(ref("banca",cr.user.uid),{usuario:u,papel,criadoEm:F.serverTimestamp()})}
+      finally{await A.signOut(ba).catch(()=>{});await deleteApp(b).catch(()=>{})}},
+    alterarSenha:async(at,n)=>{const c=A.EmailAuthProvider.credential(mail(perfil.usuario),at);await A.reauthenticateWithCredential(auth.currentUser,c);await A.updatePassword(auth.currentUser,n)},
+    get:async(c,i)=>{const s=await F.getDoc(ref(c,i));return s.exists()?s.data():null},
+    set:(c,i,d)=>F.setDoc(ref(c,i),d),update:(c,i,d)=>F.updateDoc(ref(c,i),d),del:(c,i)=>F.deleteDoc(ref(c,i)),
+    list:async c=>(await F.getDocs(F.collection(db,c))).docs.map(d=>({_id:d.id,...d.data()})),
+    criarProva:async(p,idDoc,chaveD)=>{const b=F.writeBatch(db);b.set(ref("provas",idDoc),p);b.set(ref("chaves",chaveD),{uid:p.uid,idDoc});b.set(ref("chaves","u_"+p.uid),{uid:p.uid,idDoc});await b.commit()}
+  };
+}
+let S, EDITAL={...EDITAL_PADRAO};
+async function carregarEdital(){try{const e=await S.get("config","edital");if(e)EDITAL={...EDITAL_PADRAO,...e};else if(!S.demo)EDITAL.aberto=false}catch{if(!S.demo)EDITAL.aberto=false}}
+
+/* ==== Telas públicas ==== */
+function periodo(){return EDITAL.inicio||EDITAL.fim?`${fmtD(EDITAL.inicio)} a ${fmtD(EDITAL.fim)}`:"A definir"}
+function vInicio(){app.innerHTML=`
+<section class="hero"><div class="wrap heroin"><div>
+  <p class="kicker">Edital de concurso público</p>
+  <h1>Promotor de Justiça do Estado de Jaguaré</h1>
+  <p class="lead">Prova escrita, individual e baseada no ordenamento jurídico de Jaguaré. Estude os módulos e faça a prova uma única vez.</p>
+  <div class="heroact"><a class="btn gold" href="#estudo">Começar a estudar</a><a class="btn line" href="#prova">Ir para a prova</a></div>
+</div><span class="logo seal" role="img" aria-label="Ministério Público do Estado de Jaguaré"><span class="lm" aria-hidden="true">MP<i>JG</i></span><span class="l1" aria-hidden="true">Ministério Público</span><span class="l2" aria-hidden="true">DO ESTADO DE JAGUARÉ</span></span></div></section>
+<div class="facts">
+  <div class="fact"><span>Inscrições</span><b>${EDITAL.aberto?"Abertas":"Encerradas"}</b></div>
+  <div class="fact"><span>Vagas</span><b>${esc(EDITAL.vagas)}</b></div>
+  <div class="fact"><span>Período</span><b>${esc(periodo())}</b></div>
+  <div class="fact"><span>Nota mínima</span><b>${esc(EDITAL.notaMinima)} de 20</b></div>
+</div>
+<main class="wrap"><section class="block"><h2>Como funciona</h2><div class="steps">
+  <div class="step"><h3>Leia o edital</h3><p>Confira os requisitos, as regras e os critérios de desclassificação.</p></div>
+  <div class="step"><h3>Estude os módulos</h3><p>Revise as funções do MP, os decretos e as súmulas cobrados na prova.</p></div>
+  <div class="step"><h3>Faça a prova</h3><p>Preencha nome, ID e ID do Discord. Depois de iniciada, a prova não pode ser refeita.</p></div>
+</div></section></main>`}
+
+function vEdital(){app.innerHTML=`<main class="wrap narrow"><section class="block">
+<p class="kicker" style="color:var(--muted)">Edital do concurso</p><h2>Regras do concurso para Promotor de Justiça</h2>
+<div class="sheet"><h3>Objeto</h3><p>O Ministério Público de Jaguaré abre concurso público para o cargo de Promotor de Justiça, com ${esc(EDITAL.vagas)} vaga(s). A prova é escrita, individual e baseada no ordenamento jurídico de Jaguaré.</p></div>
+<div class="sheet"><h3>Requisitos</h3><ol class="tight">
+<li>Ter no mínimo 18 anos, reputação ilibada e não possuir maus antecedentes nem pendências judiciais.</li>
+<li>Não exercer outro cargo ou função, salvo magistério (Art. 17, I) ou acúmulo autorizado por fundada necessidade (DL 017/2024, Art. 6º).</li>
+<li>Ter disponibilidade para cumprir os limites de afastamento: até 72 horas sem motivo idôneo e até 10 dias com justificativa, salvo força maior (Art. 17, IV e V).</li></ol>
+<p>Quem tem ação de exclusão de antecedentes em curso, atendidos os requisitos do Art. 2º do DL 003/2024, tem participação garantida (DL 003/2024, Art. 5º).</p></div>
+<div class="sheet"><h3>Prova</h3><ul class="tight">
+<li>Período: ${esc(periodo())}.</li><li>Cada candidato faz uma única prova, vinculada ao seu ID e ao seu Discord.</li>
+<li>As respostas devem ser próprias e indicar o artigo, decreto ou súmula usado, quando houver.</li>
+<li>A prova iniciada fica salva automaticamente e só termina com o envio.</li></ul></div>
+<div class="sheet"><h3>Avaliação</h3><ul class="tight">
+<li>O Bloco A vale 10 pontos, com 2 pontos por questão.</li><li>O Bloco B vale 10 pontos, com 1 ponto por questão.</li>
+<li>A nota mínima para aprovação é ${esc(EDITAL.notaMinima)} de 20 pontos.</li>
+<li>O desempate favorece a maior nota no Bloco B e, depois, a inscrição mais antiga.</li>
+<li>Banca: ${esc(EDITAL.banca)}. Quem for amigo ou parente de candidato não corrige sua prova, por analogia ao Art. 12.</li></ul></div>
+<div class="sheet"><h3>Desclassificação e posse</h3><p>Será desclassificado quem usar fraude, copiar respostas, omitir informação na ficha ou praticar conduta incompatível com a atividade jurisdicional (Art. 23).</p>
+<p>O aprovado será convocado para tomar posse, assinar o termo de compromisso e usar a vestimenta oficial: beca, terno escuro ou cinza e gravata verde (Art. 36). Os casos omissos serão resolvidos pela banca.</p>
+<p><b>${esc(EDITAL.assinante)}</b></p></div>
+</section></main>`}
+
+function estudoFeito(){try{return JSON.parse(safeGet("mpj_estudo")||"[]")}catch{return[]}}
+function vEstudo(){const f=new Set(estudoFeito());
+ app.innerHTML=`<main class="wrap"><section class="block"><p class="kicker" style="color:var(--muted)">Estudo pré-prova</p><h2>Tudo o que a prova cobra, em seis módulos</h2></section>
+ <div class="studygrid"><aside class="toc" aria-label="Módulos"><div><b id="estPct"></b><div class="bar"><i id="estBar"></i></div></div>
+ ${MODULOS.map(m=>`<a href="#estudo" data-go="${m.id}" id="toc-${m.id}">${esc(m.t)}</a>`).join("")}<a href="#estudo" data-go="treino">Treino rápido</a></aside>
+ <div style="display:grid;gap:18px;min-width:0">
+ ${MODULOS.map(m=>`<article class="sheet module" id="${m.id}"><div class="mhead"><h3>${esc(m.t)}</h3><label class="tick"><input type="checkbox" id="chk-${m.id}" data-m="${m.id}" ${f.has(m.id)?"checked":""}> Marcar como estudado</label></div>${m.h}</article>`).join("")}
+ <article class="sheet module" id="treino"><h3>Treino rápido</h3><p>Responda mentalmente e abra para conferir.</p>${TREINO.map(([q,a])=>`<details class="card"><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join("")}
+ <a class="btn gold" href="#prova" style="justify-self:start">Estou pronto para a prova</a></article>
+ </div></div></main>`;
+ const paint=()=>{const n=$$("[data-m]:checked").length;$("#estPct").textContent=`${n} de ${MODULOS.length} módulos`;$("#estBar").style.width=n/MODULOS.length*100+"%";MODULOS.forEach(m=>$("#toc-"+m.id).classList.toggle("done",$("#chk-"+m.id).checked))};
+ $$("[data-m]").forEach(c=>c.onchange=()=>{safeSet("mpj_estudo",JSON.stringify($$("[data-m]:checked").map(x=>x.dataset.m)));paint()});
+ $$("[data-go]").forEach(a=>a.onclick=e=>{e.preventDefault();document.getElementById(a.dataset.go).scrollIntoView({behavior:"smooth"})});paint()}
+
+/* ==== Prova ==== */
+let idAtual=null, provaAtual=null, tSave=null, salvando=false, pendente=false;
+async function vProva(){
+ app.innerHTML=`<main class="wrap narrow"><p>Verificando sua situação…</p></main>`;
+ let uid;
+ try{uid=await S.uid()}catch(e){
+  if(e.code==="admin-session"){app.innerHTML=`<main class="wrap narrow"><div class="warnbox">Você está conectado ao painel. Saia do painel para ver a prova como candidato.</div></main>`;return}
+  app.innerHTML=`<main class="wrap narrow"><div class="errbox">Não foi possível conectar. Verifique sua internet e recarregue a página.</div></main>`;return}
+ let chave=null;try{chave=await S.get("chaves","u_"+uid)}catch{}
+ if(chave){idAtual=chave.idDoc;try{provaAtual=await S.get("provas",idAtual)}catch{provaAtual=null}
+  if(provaAtual?.status==="enviada")return telaEnviada(provaAtual);
+  if(provaAtual)return telaQuestoes()}
+ telaFicha(uid)}
+function telaFicha(uid){
+ if(!EDITAL.aberto){app.innerHTML=`<main class="wrap narrow"><section class="sheet"><h2>Inscrições encerradas</h2><p>A prova não está aberta no momento. Acompanhe os avisos da banca.</p></section></main>`;return}
+ app.innerHTML=`<main class="wrap narrow"><section class="block"><p class="kicker" style="color:var(--muted)">Prova</p><h2>Ficha do candidato</h2>
+ <div class="warnbox">Você só pode iniciar esta prova uma vez. Depois de iniciar, conclua e envie neste mesmo dispositivo.</div>
+ <form class="sheet" id="fFicha"><label class="f" for="nome">Nome do personagem<input type="text" id="nome" required maxlength="80" autocomplete="off"></label>
+ <label class="f" for="idj">ID na cidade<input type="text" id="idj" required maxlength="20" autocomplete="off"></label>
+ <label class="f" for="disc">ID do Discord<small>O número do ID ou o nome de usuário.</small><input type="text" id="disc" required maxlength="40" autocomplete="off"></label>
+ <label class="check" for="dec"><input type="checkbox" id="dec" required><span>Declaro que as informações são verdadeiras, que as respostas serão de minha autoria e que aceito as regras do edital.</span></label>
+ <div id="fErr"></div><button class="btn gold" id="btnIni" type="submit">Iniciar prova</button></form></section></main>`;
+ $("#fFicha").onsubmit=async e=>{e.preventDefault();const nome=$("#nome").value.trim(),idJogo=$("#idj").value.trim(),discord=$("#disc").value.trim(),idDoc=norm(idJogo),dk=norm(discord);
+  const err=m=>$("#fErr").innerHTML=`<div class="errbox">${esc(m)}</div>`;
+  if(!idDoc||!dk)return err("Informe um ID e um Discord com letras ou números.");
+  if(!await confirmar("Iniciar a prova agora?","A partir daqui esta é sua única tentativa. Você terá as 15 questões para responder e enviar.","Iniciar prova"))return;
+  $("#btnIni").disabled=true;
+  const p={uid,nome,idJogo,discord,status:"em_andamento",respostas:{},inicio:S.now(),atualizadaEm:S.now()};
+  try{await S.criarProva(p,idDoc,"d_"+dk);idAtual=idDoc;provaAtual=await S.get("provas",idDoc);telaQuestoes()}
+  catch(x){$("#btnIni").disabled=false;err(x.code==="permission-denied"?"Este ID ou Discord já fez a prova. Fale com a banca se houver algum erro.":"Não foi possível iniciar. Verifique sua internet e tente de novo.")}}}
+const respDe=q=>$("#r-"+q.id)?.value??"";
+function telaQuestoes(){
+ let local={};try{local=JSON.parse(safeGet("mpj_rasc_"+idAtual)||"{}")}catch{}
+ const r={...provaAtual.respostas,...local};
+ const bloco=b=>`<h3 class="blocktitle">${esc(BLOCOS[b])}</h3>`+QUESTOES.filter(q=>q.bloco===b).map(q=>`<div class="sheet question" id="c-${q.id}"><span class="qnum">Questão ${q.id.slice(1)} · ${q.max} ponto${q.max>1?"s":""}</span><label class="qtext" for="r-${q.id}">${esc(q.t)}</label><textarea id="r-${q.id}" data-q maxlength="4000">${esc(r[q.id]||"")}</textarea></div>`).join("");
+ app.innerHTML=`<main class="wrap narrow"><div class="progressline"><div class="row"><span id="pgTxt"></span><span id="svTxt">Salvo</span></div><div class="bar"><i id="pgBar"></i></div></div>
+ <section class="block" style="margin-top:18px"><p>Candidato: <b>${esc(provaAtual.nome)}</b> · ID ${esc(provaAtual.idJogo)}</p>${bloco("A")}${bloco("B")}
+ <div id="eErr"></div><button class="btn gold" id="btnEnv" style="justify-self:start">Enviar prova</button></section></main>`;
+ const prog=()=>{const n=QUESTOES.filter(q=>respDe(q).trim()).length;$("#pgTxt").textContent=`${n} de ${QUESTOES.length} respondidas`;$("#pgBar").style.width=n/QUESTOES.length*100+"%"};
+ const colher=()=>Object.fromEntries(QUESTOES.map(q=>[q.id,respDe(q)]));
+ async function salvar(){clearTimeout(tSave);if(salvando){pendente=true;return}salvando=true;
+  try{await S.update("provas",idAtual,{respostas:colher(),atualizadaEm:S.now()});if($("#svTxt"))$("#svTxt").textContent="Salvo"}
+  catch{if($("#svTxt"))$("#svTxt").textContent="Sem conexão: suas respostas estão guardadas neste navegador"}
+  salvando=false;if(pendente){pendente=false;salvar()}}
+ $$("[data-q]").forEach(t=>t.oninput=()=>{prog();safeSet("mpj_rasc_"+idAtual,JSON.stringify(colher()));$("#svTxt").textContent="Salvando…";clearTimeout(tSave);tSave=setTimeout(salvar,1800)});
+ $("#btnEnv").onclick=async()=>{const vazias=QUESTOES.filter(q=>!respDe(q).trim()).length;
+  if(!await confirmar("Enviar a prova?",(vazias?`Você deixou ${vazias} questão(ões) em branco. `:"")+"Depois do envio não será possível alterar nem refazer a prova.","Enviar prova definitivamente"))return;
+  $("#btnEnv").disabled=true;clearTimeout(tSave);
+  const protocolo="MPJ-"+Math.random().toString(36).slice(2,8).toUpperCase();
+  try{await S.update("provas",idAtual,{respostas:colher(),status:"enviada",protocolo,enviadaEm:S.now(),atualizadaEm:S.now()});
+   try{localStorage.removeItem("mpj_rasc_"+idAtual)}catch{}
+   telaEnviada(await S.get("provas",idAtual))}
+  catch{$("#btnEnv").disabled=false;$("#eErr").innerHTML=`<div class="errbox">O envio falhou. Suas respostas continuam aqui. Verifique a internet e tente de novo.</div>`}};
+ prog()}
+function telaEnviada(p){app.innerHTML=`<main class="wrap narrow"><section class="sheet receipt"><span class="logo" role="img" aria-label="Ministério Público do Estado de Jaguaré"><span class="lm" aria-hidden="true">MP<i>JG</i></span><span class="l1" aria-hidden="true">Ministério Público</span><span class="l2" aria-hidden="true">DO ESTADO DE JAGUARÉ</span></span><h2>Prova enviada</h2>
+ <p>${esc(p.nome)} · ID ${esc(p.idJogo)}</p><p>Guarde seu protocolo:</p><p class="proto" id="proto">${esc(p.protocolo||"—")}</p>
+ <button class="btn line" id="cp">Copiar protocolo</button><p style="color:var(--muted)">Enviada em ${esc(fmtDT(p.enviadaEm))}. Esta tentativa foi usada e a banca vai corrigir sua prova.</p></section></main>`;
+ $("#cp").onclick=()=>copiar(p.protocolo)}
+
+/* ==== Painel ==== */
+let aba="provas", PROVAS=[], CORR={}, GAB={}, BANCA=[], filtro="";
+function vPainel(){if(!S.logado())return telaLogin();telaPainel()}
+const ERR_USER="Use de 3 a 30 letras ou números no usuário, sem espaços.";
+const userOk=u=>/^[a-z0-9._-]{3,30}$/.test(u);
+function telaLogin(primeiro=false){app.innerHTML=`<main class="wrap" style="max-width:460px"><section class="block"><h2>${primeiro?"Primeiro acesso":"Painel da banca"}</h2>
+ ${primeiro?`<p>Crie a conta do administrador. Você só faz isso uma vez.</p>`:""}
+ <form class="sheet" id="fLog"><label class="f" for="us">Usuário<input type="text" id="us" required autocomplete="username" autocapitalize="none" spellcheck="false"></label>
+ <label class="f" for="pw">Senha<small>${primeiro?"Mínimo de 6 caracteres.":""}</small><input type="password" id="pw" required minlength="6" autocomplete="${primeiro?"new-password":"current-password"}"></label>
+ ${primeiro?`<label class="f" for="cd">Código de instalação<small>O código que você definiu nas regras do Firebase.</small><input type="password" id="cd" required autocomplete="off"></label>`:""}
+ <div id="lErr"></div><button class="btn" type="submit">${primeiro?"Criar administrador":"Entrar"}</button>
+ <button class="btn line" type="button" id="alt">${primeiro?"Já tenho conta":"Primeiro acesso"}</button>
+ ${S.demo?`<p class="note">Na demonstração, use o primeiro acesso com o código demo.</p>`:""}</form></section></main>`;
+ $("#alt").onclick=()=>telaLogin(!primeiro);
+ const err=m=>$("#lErr").innerHTML=`<div class="errbox">${esc(m)}</div>`;
+ $("#fLog").onsubmit=async e=>{e.preventDefault();const u=$("#us").value.trim().toLowerCase(),p=$("#pw").value;
+  if(!userOk(u))return err(ERR_USER);
+  try{primeiro?await S.primeiroAcesso(u,p,$("#cd").value):await S.login(u,p);aba="provas";telaPainel()}
+  catch(x){err(!primeiro?"Usuário ou senha incorretos.":x.code==="auth/email-already-in-use"?"Este usuário já existe.":x.code==="codigo"?"Código de instalação incorreto.":"Não foi possível criar a conta. Tente de novo.")}}}
+async function dados(){const [p,c,g,b]=await Promise.all([S.list("provas"),S.list("correcoes"),S.get("config","gabarito"),S.ehAdmin()?S.list("banca"):[]]);PROVAS=p;CORR=Object.fromEntries(c.map(x=>[x._id,x]));GAB=g||{};BANCA=b}
+function situ(p){if(p.status!=="enviada")return["Em andamento","p-and"];const c=CORR[p._id];if(!c)return["Aguardando correção","p-esp"];return c.total>=EDITAL.notaMinima?["Aprovado","p-ok"]:["Reprovado","p-bad"]}
+async function telaPainel(){app.innerHTML=`<main class="wrap"><p>Carregando as provas…</p></main>`;
+ try{await dados()}catch{app.innerHTML=`<main class="wrap"><div class="errbox">Sua conta não tem acesso às provas. Fale com o administrador.</div><p style="margin-top:12px"><button class="btn line" id="sair">Sair</button></p></main>`;$("#sair").onclick=async()=>{await S.logout();telaLogin()};return}
+ app.innerHTML=`<main class="wrap"><section class="block"><div class="toolbar" style="justify-content:space-between"><h2>Painel da banca</h2><span><small style="color:var(--muted)">${esc(S.usuario())} · ${S.ehAdmin()?"administrador":"banca"}</small> <button class="btn line" id="sair">Sair</button></span></div>
+ <div class="tabs" role="tablist">${(S.ehAdmin()?[["provas","Provas"],["banca","Banca"],["edital","Edital"],["gabarito","Gabarito"],["senha","Minha senha"]]:[["provas","Provas"],["senha","Minha senha"]]).map(([k,n])=>`<button role="tab" aria-selected="${aba===k}" data-aba="${k}">${n}</button>`).join("")}</div><div id="abaC"></div></section></main>`;
+ $("#sair").onclick=async()=>{await S.logout();telaLogin()};
+ $$("[data-aba]").forEach(b=>b.onclick=()=>{aba=b.dataset.aba;telaPainel()});
+ ({provas:abaProvas,banca:abaBanca,edital:abaEdital,gabarito:abaGab,senha:abaSenha})[aba]()}
+function abaProvas(){const el=$("#abaC"),env=PROVAS.filter(p=>p.status==="enviada"),corr=env.filter(p=>CORR[p._id]),apr=corr.filter(p=>CORR[p._id].total>=EDITAL.notaMinima);
+ const ord=[...PROVAS].sort((a,b)=>(CORR[b._id]?.total??-1)-(CORR[a._id]?.total??-1)||ms(a.inicio)-ms(b.inicio));
+ el.innerHTML=`<div style="display:grid;gap:14px"><div class="stats"><div class="stat"><b>${PROVAS.length}</b><span>Iniciadas</span></div><div class="stat"><b>${env.length-corr.length}</b><span>Aguardando correção</span></div><div class="stat"><b>${corr.length}</b><span>Corrigidas</span></div><div class="stat"><b>${apr.length}</b><span>Aprovados</span></div></div>
+ <div class="toolbar"><input type="text" id="busca" placeholder="Buscar por nome, ID ou Discord" aria-label="Buscar candidato" value="${esc(filtro)}"><button class="btn line" id="atual">Atualizar</button></div>
+ <div class="sheet tablebox" style="padding:6px"><table id="tb"></table></div></div>`;
+ const paint=()=>{const f=filtro.toLowerCase(),rows=ord.filter(p=>!f||(p.nome+p.idJogo+p.discord).toLowerCase().includes(f));
+  $("#tb").innerHTML=`<tr><th>Candidato</th><th>ID</th><th>Discord</th><th>Situação</th><th>Nota</th><th>Tempo</th><th>Envio</th></tr>`+(rows.length?rows.map(p=>{const[s,c]=situ(p);return`<tr class="rowlink" tabindex="0" data-p="${esc(p._id)}"><td><b>${esc(p.nome)}</b></td><td>${esc(p.idJogo)}</td><td>${esc(p.discord)}</td><td><span class="pill ${c}">${s}</span></td><td>${CORR[p._id]?ptNum(CORR[p._id].total):"—"}</td><td>${dur(p.inicio,p.enviadaEm)}</td><td>${fmtDT(p.enviadaEm)}</td></tr>`}).join(""):`<tr><td colspan="7">Nenhuma prova por aqui. As provas aparecem assim que um candidato iniciar.</td></tr>`);
+  $$("[data-p]").forEach(r=>{r.onclick=()=>detalhe(r.dataset.p);r.onkeydown=e=>{if(e.key==="Enter")detalhe(r.dataset.p)}})};
+ $("#busca").oninput=e=>{filtro=e.target.value;paint()};$("#atual").onclick=telaPainel;paint()}
+function detalhe(id){const p=PROVAS.find(x=>x._id===id),c=CORR[id]||{notas:{},comentarios:{},parecer:""},el=$("#abaC");
+ const[s,cl]=situ(p);
+ el.innerHTML=`<div style="display:grid;gap:14px"><button class="btn line" id="volta" style="justify-self:start">Voltar às provas</button>
+ <div class="sheet"><div class="toolbar" style="justify-content:space-between"><h3>${esc(p.nome)}</h3><span class="pill ${cl}">${s}</span></div>
+ <p>ID ${esc(p.idJogo)} · Discord ${esc(p.discord)} · Protocolo ${esc(p.protocolo||"—")}</p><p style="color:var(--muted)">Início ${fmtDT(p.inicio)} · Envio ${fmtDT(p.enviadaEm)} · Tempo ${dur(p.inicio,p.enviadaEm)}</p></div>
+ ${p.status!=="enviada"?`<div class="warnbox">Este candidato ainda não enviou a prova. A correção abre depois do envio.</div>`:""}
+ ${QUESTOES.map(q=>`<div class="sheet question"><span class="qnum">Questão ${q.id.slice(1)} · vale ${q.max}</span><p class="qtext">${esc(q.t)}</p>
+ <div class="corr"><div class="answer">${esc(p.respostas?.[q.id])||"<em>Em branco</em>"}</div><div class="key"><b>Resposta esperada</b>${GAB[q.id]?`${esc(GAB[q.id].resposta)}<br><small>${esc(GAB[q.id].base)}</small>`:"Gabarito não importado."}</div></div>
+ ${p.status==="enviada"?`<div class="marks"><label class="f" for="n-${q.id}">Pontos<input type="number" id="n-${q.id}" data-n min="0" max="${q.max}" step="0.5" value="${c.notas?.[q.id]??""}"></label><label class="f" for="k-${q.id}">Comentário<input type="text" id="k-${q.id}" maxlength="300" value="${esc(c.comentarios?.[q.id])}"></label></div>`:""}</div>`).join("")}
+ ${p.status==="enviada"?`<div class="sheet"><label class="f" for="par">Parecer da banca<textarea id="par" maxlength="1000">${esc(c.parecer)}</textarea></label></div>
+ <div class="totalbar"><span>Total <b id="tot">0</b> de 20</span><span id="sit"></span><span class="toolbar"><button class="btn line" id="copRes">Copiar resultado</button><button class="btn gold" id="salv">Salvar correção</button></span></div>`:""}
+ ${S.ehAdmin()?`<div class="sheet"><h3>Liberar nova tentativa</h3><p>Use só em caso de erro técnico comprovado. Isso apaga esta prova e a correção.</p><button class="btn bad" id="lib" style="justify-self:start">Apagar prova e liberar</button></div>`:""}</div>`;
+ $("#volta").onclick=()=>abaProvas();
+ if($("#lib"))$("#lib").onclick=async()=>{if(!await confirmar("Apagar esta prova?",`A prova de ${p.nome} será apagada e o candidato poderá refazê-la.`,"Apagar e liberar",true))return;
+  try{await Promise.all([S.del("provas",id),S.del("correcoes",id),S.del("chaves","u_"+p.uid),S.del("chaves","d_"+norm(p.discord))]);toast("Tentativa liberada");telaPainel()}catch{toast("Não foi possível apagar. Tente de novo.")}};
+ if(p.status!=="enviada")return;
+ const total=()=>{let t=0;QUESTOES.forEach(q=>{const v=parseFloat($("#n-"+q.id).value);if(!isNaN(v))t+=Math.min(v,q.max)});return t};
+ const up=()=>{const t=total(),ok=t>=EDITAL.notaMinima;$("#tot").textContent=ptNum(t);$("#sit").innerHTML=`<span class="pill ${ok?"p-ok":"p-bad"}">${ok?"Aprovado":"Reprovado"}</span>`};
+ $$("[data-n]").forEach(i=>i.oninput=up);up();
+ $("#copRes").onclick=()=>copiar(`Concurso MP Jaguaré\nCandidato: ${p.nome} (ID ${p.idJogo})\nNota: ${ptNum(total())} de 20\nResultado: ${total()>=EDITAL.notaMinima?"Aprovado":"Reprovado"}`);
+ $("#salv").onclick=async()=>{const fora=QUESTOES.find(q=>{const v=parseFloat($("#n-"+q.id).value);return v<0||v>q.max});if(fora)return toast(`A questão ${fora.id.slice(1)} vale no máximo ${fora.max}.`);
+  if(QUESTOES.some(q=>$("#n-"+q.id).value===""))return toast("Dê pontos em todas as questões antes de salvar.");
+  const d={notas:Object.fromEntries(QUESTOES.map(q=>[q.id,parseFloat($("#n-"+q.id).value)])),comentarios:Object.fromEntries(QUESTOES.map(q=>[q.id,$("#k-"+q.id).value])),parecer:$("#par").value,total:total(),corretor:S.usuario(),corrigidaEm:S.now()};
+  try{await S.set("correcoes",id,d);CORR[id]={_id:id,...d};toast("Correção salva");abaProvas()}catch{toast("Não foi possível salvar. Tente de novo.")}}}
+function abaEdital(){const e=EDITAL;$("#abaC").innerHTML=`<form class="sheet" id="fEd"><label class="check" for="ab"><input type="checkbox" id="ab" ${e.aberto?"checked":""}><span>Inscrições abertas: candidatos podem iniciar a prova</span></label>
+ <div class="two"><label class="f" for="vg">Vagas<input type="text" id="vg" value="${esc(e.vagas)}"></label><label class="f" for="nm">Nota mínima (de 20)<input type="number" id="nm" min="0" max="20" step="0.5" value="${esc(e.notaMinima)}"></label>
+ <label class="f" for="di">Início<input type="date" id="di" value="${esc(e.inicio)}"></label><label class="f" for="df">Fim<input type="date" id="df" value="${esc(e.fim)}"></label></div>
+ <label class="f" for="bc">Banca<input type="text" id="bc" value="${esc(e.banca)}"></label><label class="f" for="as">Quem assina o edital<input type="text" id="as" value="${esc(e.assinante)}"></label>
+ <button class="btn" type="submit" style="justify-self:start">Salvar edital</button></form>`;
+ $("#fEd").onsubmit=async ev=>{ev.preventDefault();const d={aberto:$("#ab").checked,vagas:$("#vg").value.trim()||"A definir",notaMinima:parseFloat($("#nm").value)||14,inicio:$("#di").value,fim:$("#df").value,banca:$("#bc").value.trim()||"A definir",assinante:$("#as").value.trim()||"A definir"};
+  try{await S.set("config","edital",d);EDITAL=d;toast("Edital atualizado")}catch{toast("Não foi possível salvar.")}}}
+function abaGab(){const n=QUESTOES.filter(q=>GAB[q.id]).length;$("#abaC").innerHTML=`<div class="sheet"><p>${n===15?`<span class="pill p-ok">Gabarito instalado</span> As 15 respostas aparecem ao lado de cada prova.`:`<span class="pill p-esp">${n} de 15 respostas</span> Importe o arquivo gabarito.json. Ele fica fora do site para os candidatos não verem.`}</p>
+ <label class="f" for="gf">Arquivo gabarito.json<input type="file" id="gf" accept=".json,application/json"></label>
+ <label class="f" for="gt">Ou cole o conteúdo<textarea id="gt"></textarea></label><div id="gErr"></div><button class="btn" id="gs" style="justify-self:start">Salvar gabarito</button></div>`;
+ $("#gf").onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>$("#gt").value=r.result;r.readAsText(f)};
+ $("#gs").onclick=async()=>{let d;try{d=JSON.parse($("#gt").value);if(!d.q1||!d.q15)throw 0}catch{$("#gErr").innerHTML=`<div class="errbox">Este conteúdo não é um gabarito válido. Use o arquivo gabarito.json.</div>`;return}
+  try{await S.set("config","gabarito",d);toast("Gabarito salvo");telaPainel()}catch{toast("Não foi possível salvar.")}}}
+
+function abaBanca(){const ord=[...BANCA].sort((a,b)=>(a.usuario||"").localeCompare(b.usuario||""));
+ $("#abaC").innerHTML=`<div style="display:grid;gap:14px"><form class="sheet" id="fMem"><h3>Registrar pessoa da banca</h3><div class="two">
+ <label class="f" for="mu">Usuário<input type="text" id="mu" required autocomplete="off" autocapitalize="none" spellcheck="false"></label>
+ <label class="f" for="ms">Senha inicial<small>Mínimo de 6 caracteres.</small><input type="text" id="ms" required minlength="6" autocomplete="off"></label></div>
+ <label class="check" for="mp"><input type="checkbox" id="mp"><span>Também é administrador: registra pessoas, altera o edital e libera tentativas</span></label>
+ <div id="mErr"></div><button class="btn" type="submit" id="mB" style="justify-self:start">Registrar</button></form>
+ <div class="sheet tablebox" style="padding:6px"><table><tr><th>Usuário</th><th>Acesso</th><th></th></tr>${ord.map(b=>`<tr><td><b>${esc(b.usuario)}</b>${b._id===S.meuId()?" (você)":""}</td><td><span class="pill ${b.papel==="admin"?"p-ok":"p-and"}">${b.papel==="admin"?"Administrador":"Banca"}</span></td><td style="text-align:right">${b._id===S.meuId()?"":`<button class="btn bad" data-rm="${esc(b._id)}">Remover</button>`}</td></tr>`).join("")}</table></div></div>`;
+ $("#fMem").onsubmit=async e=>{e.preventDefault();const u=$("#mu").value.trim().toLowerCase(),p=$("#ms").value,er=m=>$("#mErr").innerHTML=`<div class="errbox">${esc(m)}</div>`;
+  if(!userOk(u))return er(ERR_USER);$("#mB").disabled=true;
+  try{await S.criarMembro(u,p,$("#mp").checked?"admin":"banca");toast(`${u} registrado`);telaPainel()}
+  catch(x){$("#mB").disabled=false;er(x.code==="auth/email-already-in-use"?"Este usuário já existe. Escolha outro nome.":"Não foi possível registrar. Tente de novo.")}};
+ $$("[data-rm]").forEach(b=>b.onclick=async()=>{const m=BANCA.find(x=>x._id===b.dataset.rm);if(!await confirmar("Remover da banca?",`${m.usuario} perde o acesso ao painel. As correções feitas continuam salvas.`,"Remover",true))return;
+  try{await S.del("banca",m._id);toast("Acesso removido");telaPainel()}catch{toast("Não foi possível remover.")}})}
+function abaSenha(){$("#abaC").innerHTML=`<form class="sheet" id="fSen" style="max-width:420px"><label class="f" for="sa">Senha atual<input type="password" id="sa" required autocomplete="current-password"></label>
+ <label class="f" for="sn">Nova senha<small>Mínimo de 6 caracteres.</small><input type="password" id="sn" required minlength="6" autocomplete="new-password"></label><div id="sErr"></div><button class="btn" type="submit" style="justify-self:start">Alterar senha</button></form>`;
+ $("#fSen").onsubmit=async e=>{e.preventDefault();try{await S.alterarSenha($("#sa").value,$("#sn").value);e.target.reset();$("#sErr").innerHTML="";toast("Senha alterada")}catch{$("#sErr").innerHTML=`<div class="errbox">A senha atual está incorreta.</div>`}}}
+
+/* ==== Rotas ==== */
+const ROTAS={inicio:vInicio,edital:vEdital,estudo:vEstudo,prova:vProva,painel:vPainel};
+function rota(){const r=ROTAS[location.hash.slice(1)]?location.hash.slice(1):"inicio";$$("[data-nav]").forEach(a=>a.dataset.nav===r?a.setAttribute("aria-current","page"):a.removeAttribute("aria-current"));clearTimeout(tSave);ROTAS[r]();window.scrollTo(0,0)}
+window.addEventListener("hashchange",rota);
+(async()=>{
+ try{S=FIREBASE_CONFIG?await fbStore():demoStore()}catch{app.innerHTML=`<main class="wrap"><div class="errbox">Não foi possível conectar ao banco de dados. Confira a configuração do Firebase.</div></main>`;return}
+ $("#demoBar").hidden=!S.demo;await carregarEdital();rota()
+})();
+</script>
+</body>
+</html>
